@@ -1,0 +1,58 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# Create a sample data frame for training completion trends
+data = {
+    'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    'Completion Rate': [60, 65, 70, 75, 80, 85]
+}
+
+df = pd.DataFrame(data)
+
+# Create a line chart to illustrate trend analysis in training completion
+plt.figure(figsize=(10, 6))
+plt.plot(df['Month'], df['Completion Rate'], marker='o', linestyle='-', color='b')
+plt.title('Training Completion Rate Over Time')
+plt.xlabel('Month')
+plt.ylabel('Completion Rate (%)')
+plt.ylim(50, 100)
+plt.grid(visible=True)
+
+# Save the visual representation of the line chart
+line_chart_path = '/mnt/data/training_completion_trend.png'
+plt.savefig(line_chart_path)
+
+# Create a pie chart to show completion vs. incomplete training modules
+labels = 'Completed', 'Incomplete'
+sizes = [75, 25]
+colors = ['#4CAF50', '#FFC107']
+explode = (0.1, 0)  # explode the first slice
+
+plt.figure(figsize=(6, 6))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Training Module Status')
+
+# Save the visual representation of the pie chart
+pie_chart_path = '/mnt/data/training_module_status.png'
+plt.savefig(pie_chart_path)
+
+# Create a color-coded calendar example (using bar representation for simplicity)
+days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+availability = [1, 0, 1, 1, 0]  # 1 - Available, 0 - Booked
+
+plt.figure(figsize=(10, 2))
+bars = plt.bar(days, availability, color=['green' if a == 1 else 'red' for a in availability])
+plt.title('Training Slot Availability')
+plt.xlabel('Day of the Week')
+plt.yticks([])
+for bar, avail in zip(bars, availability):
+    plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() / 2, 'Available' if avail else 'Booked', 
+             ha='center', va='bottom', fontsize=10, color='white')
+
+# Save the visual representation of the calendar availability
+calendar_chart_path = '/mnt/data/training_slot_availability.png'
+plt.savefig(calendar_chart_path)
+
+# Return paths of the generated images
+[line_chart_path, pie_chart_path, calendar_chart_path]
